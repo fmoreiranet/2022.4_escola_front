@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <section class="container">
+        <!-- <p>
+            30) Ler o nome de um aluno, as notas da la. e 2a. avaliações. Validar as notas aceitando apenas notas
+            válidas para cada avaliação (0,0 a 10,0). Caso seja fornecida uma nota inválida deve ser impressa uma
+            mensagem para o usuário.
+            Após a entrada das notas deve ser impressa a seguinte mensagem: "Os dados estão corretos (S/N)?", aceitando
+            apenas a letra S ou N maiúsculas como resposta. Caso o usuário responda a letra N, o programa deverá
+            solicitar novos dados. Calcular a média do aluno. Após este cálculo a tela deve ser limpa e os resultados
+            impressos conforme o lay-out abaixo:
+
+            ALUNO: XXXXXXXXX
+            -----------------------------------------------------------------------------
+            1º. Avaliação 2º. Avaliação Média Resultado
+            XX.X XX.X XX.X XXXXXXX
+            -----------------------------------------------------------------------------
+            Obs: Você deverá obter nota 6,0 no exame para aprovação!
+            Novo cálculo (S/N)?
+
+            Na coluna "Resultado" deverão ser impressas as seguintes mensagens, conforme os casos abaixo:
+            Aprovado : média maior ou igual a 6,0
+            Reprovado: média menor que 3,0
+            Em Exame: média maior ou igual a 3,0 e menor que 6,0
+            >> Note que a observação só deverá ser impressa caso o aluno fique em exame.
+        </p> -->
+        <h2>Controle de notas</h2>
+        <form action="" class="row g-3 align-items-end" id="formCadadastro">
+            <div class="col">
+                <label for="nome" class="">Nome:</label>
+                <input type="text" class="form-control" id="nome" placeholder="">
+            </div>
+            <div class="col">
+                <label for="avaliacao1" class="">Avaliação 1</label>
+                <input type="number" class="form-control" id="avaliacao1" placeholder="">
+            </div>
+            <div class="col">
+                <label for="avaliacao2" class="">Avaliação 2</label>
+                <input type="number" class="form-control" id="avaliacao2" placeholder="">
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" type="button" id="enviar-dados">Entrar</button>
+            </div>
+            <input type="hidden" id="id_aluno" value="">
+            <!-- 
+            <div class="col">
+                <button class="btn btn-primary" type="button" onclick="montarTabela()">Listar</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" type="reset">Limpar</button>
+            </div> 
+            -->
+        </form>
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Resultado</th>
+                <th>Media</th>
+                <th><img src="./img/trash-can-regular.svg" alt="" class="icon"></th>
+                <th><img src="./img/pen-to-square-regular.svg" alt="" class="icon"></th>
+            </tr>
+            <tbody id="saidaTexto">
+            </tbody>
+        </table>
+
+
+        <div class="spinner-border visually-hidden" role="status" id="loading">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+
+
+        <div class="row" id="endereco">
+            <div class="col-12">
+                <label for="cep" class="">CEP:
+                    <!-- <a class="" type="" onclick="verificaCEP()">Buscar</a> -->
+                </label>
+                <input type="text" class="form-control" id="cep" placeholder="" maxlength="8">
+            </div>
+            <div class="col-6">
+                <label for="logradouro" class="">Endereço:</label>
+                <input type="text" class="form-control" id="logradouro" placeholder="">
+            </div>
+            <div class="col-6">
+                <label for="bairro" class="">Bairro:</label>
+                <input type="text" class="form-control" id="bairro" placeholder="">
+            </div>
+
+            <div class="col-6">
+                <label for="localidade" class="">Cidade:</label>
+                <input type="text" class="form-control" id="localidade" placeholder="">
+            </div>
+            <div class="col-6">
+                <label for="uf" class="">Estado:</label>
+                <input type="text" class="form-control" id="uf" placeholder="">
+            </div>
+
+            <div class="col-6">
+                <label for="numero" class="">Numero:</label>
+                <input type="text" class="form-control" id="numero" placeholder="">
+            </div>
+            <div class="col-6">
+                <label for="complento" class="">Complemento:</label>
+                <input type="text" class="form-control" id="complemento" placeholder="">
+            </div>
+
+            <div class="col">
+                <button class="btn btn-primary" type="button" onclick="">Cadastrar</button>
+            </div>
+        </div>
+
+        <div id="mostrarEndereco"></div>
+    </section>
+</body>
+
+<!-- <script src="js/model/alunoObj.js"></script> -->
+<script src="js/model/AlunoClass.js"></script>
+<script src="js/services/alunoService.js"></script>
+<script src="js/controller/alunoController.js"></script>
+
+</html>
