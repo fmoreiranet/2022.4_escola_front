@@ -1,5 +1,6 @@
-//CRUD ----------------------
 const url = "http://localhost/projetos/escola_back/";
+
+//CRUD ----------------------
 async function addAluno(aluno, callback) {
     var parameter = {
         method: 'POST',
