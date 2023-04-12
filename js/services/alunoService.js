@@ -1,10 +1,34 @@
 //CRUD ----------------------
-function addAluno(aluno) {
-    console.log("Cadastrado");
+const url = "http://localhost/projetos/escola_back/";
+async function addAluno(aluno, callback) {
+    var parameter = {
+        method: 'POST',
+        body: JSON.stringify(aluno)
+    };
+    await fetch(url + "aluno", parameter)
+        .then(res => res.text())
+        .then(txt => {
+            let result = JSON.parse(txt);
+            return callback(result.message);
+        })
+        .catch(err => {
+            throw err.error;
+        })
 }
 
-function getAllAluno() {
-
+async function getAllAluno(callback) {
+    var parameter = {
+        method: 'GET',
+    };
+    await fetch(url + "aluno", parameter)
+        .then(res => res.text())
+        .then(content => {
+            let result = JSON.parse(content);
+            return callback(result.dados);
+        })
+        .catch(err => {
+            throw err.error;
+        })
 }
 
 function getAluno(matricula) {

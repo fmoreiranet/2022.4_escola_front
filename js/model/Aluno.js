@@ -9,15 +9,15 @@ class Aluno {
     }
     validarDados() {
         let erros = "";
-        if (this.nome) {
+        if (!this.nome) {
             erros += "Nome em branco.\n";
         }
-        if (this.email) {
+        if (!this.email) {
             erros += "E-mail em branco.\n";
         }
-        if (this.senha) {
+        if (!this.senha) {
             erros += "Senha em branco.\n";
         }
-        if (erros != "") throw new Exception(erros);
+        if (erros != "") throw erros;
     };
 }
