@@ -58,8 +58,8 @@ function listaAluno() {
                 <td>${alunos[index].nome}</td>
                 <td>${alunos[index].email}</td>
                 <td>${alunos[index].data_nasc}</td>
-                <td><img src="../img/trash-can-regular.svg" alt="" class="icon" onclick=""></td>
-                <td><img src="../img/pen-to-square-regular.svg" alt="" class="icon" onclick=""></td>
+                <td><img src="../img/trash-can-regular.svg" alt="" class="icon" onclick="removerAluno(${alunos[index].matricula})"></td>
+                <td><img src="../img/pen-to-square-regular.svg" alt="" class="icon" onclick="editarAluno(${alunos[index].matricula})"></td>
             <tr>`;
         }
         tempTable += `</table>`
@@ -67,6 +67,19 @@ function listaAluno() {
     });
 }
 
+function editarAluno(aluno) {
+    console.log("editar:", aluno);
+
+}
+
+function removerAluno(aluno) {
+    console.log("remover:", aluno);
+}
+
+
+
+
+// Loadding.......
 function loadingShow() {
     let loading = document.querySelector("#loading");
     loading.classList.remove("visually-hidden");
