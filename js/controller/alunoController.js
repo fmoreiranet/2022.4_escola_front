@@ -9,6 +9,8 @@
     if (localListAluno) {
         listaAluno();
     }
+
+    showEditAluno();
 })();
 
 function enviarDados() {
@@ -30,6 +32,7 @@ function limparForm() {
 
 function mountAluno() {
     let alunoTemp = new Aluno();
+    alunoTemp.matricula = document.getElementById("matricula").value;
     alunoTemp.nome = document.getElementById("nome").value;
     alunoTemp.email = document.getElementById("email").value;
     alunoTemp.senha = document.getElementById("senha").value;
@@ -58,7 +61,7 @@ function listaAluno() {
                 <td>${alunos[index].nome}</td>
                 <td>${alunos[index].email}</td>
                 <td>${alunos[index].data_nasc}</td>
-                <td><img src="../img/trash-can-regular.svg" alt="" class="icon" onclick="removerAluno(${alunos[index].matricula})"></td>
+                <td><img src="../img/trash-can-regular.svg" alt="" class="icon" onclick="removerAluno(${alunos[index].matricula}, '${alunos[index].nome}')"></td>
                 <td><img src="../img/pen-to-square-regular.svg" alt="" class="icon" onclick="editarAluno(${alunos[index].matricula})"></td>
             <tr>`;
         }
@@ -67,13 +70,39 @@ function listaAluno() {
     });
 }
 
-function editarAluno(aluno) {
-    console.log("editar:", aluno);
-
+function editarAluno(matricula) {
+    console.log("editar:", matricula);
+    getAluno(matricula, (aluno) => {
+        sessionStorage.setItem("editAluno", JSON.stringify(aluno));
+        location.href = "alunoCadastro.html";
+    });
 }
 
-function removerAluno(aluno) {
-    console.log("remover:", aluno);
+function showEditAluno() {
+    let editAluno = JSON.parse(sessionStorage.getItem("editAluno"));
+    if (editAluno != null) {
+        let alunoTemp = editAluno.dados[0];
+        document.getElementById("matricula").value = alunoTemp.matricula;
+        document.getElementById("nome").value = alunoTemp.nome;
+        document.getElementById("email").value = alunoTemp.email;
+        document.getElementById("senha").value = alunoTemp.senha;
+        document.getElementById("data_nasc").value = alunoTemp.data_nasc;
+        sessionStorage.removeItem("editAluno");
+        return alunoTemp;
+    }
+    return null;
+}
+
+function removerAluno(matricula, nome) {
+    console.log("remover:", matricula);
+    let pergunta = `Deseja remover o cadastro: ${nome}?`;
+    if (confirm(pergunta)) {
+        deleteAluno(matricula, (result) => {
+            console.log(result);
+            alert(result.message);
+            listaAluno();
+        });
+    }
 }
 
 

@@ -29,27 +29,47 @@ async function getAllAluno(callback) {
         })
         .catch(err => {
             throw err.error;
+        });
+}
+
+async function getAluno(matricula, callback) {
+    let obj = { matricula: matricula };
+    let parameter = {
+        method: 'PUT',
+        body: JSON.stringify(obj)
+    };
+    await fetch(url + "aluno", parameter)
+        .then(res => res.text())
+        .then(content => {
+            let result = JSON.parse(content);
+            return callback(result);
         })
+        .catch(err => {
+            console.log(err);
+            throw err.error;
+        });
 }
 
-function getAluno(matricula) {
-
+async function deleteAluno(matricula, callback) {
+    let obj = { matricula: matricula };
+    let parameter = {
+        method: 'DELETE',
+        body: JSON.stringify(obj)
+    };
+    await fetch(url + "aluno", parameter)
+        .then(res => res.text())
+        .then(content => {
+            let result = JSON.parse(content);
+            return callback(result);
+        })
+        .catch(err => {
+            console.log(err);
+            throw err.error;
+        });
 }
 
-function deleteAluno() {
-    let pergunta = `Deseja remover o aluno ${dadosAlunos[index].nome}?`;
-    if (confirm(pergunta)) {
-
-    }
-    return novoVetor;
-}
-
-function updateAluno(aluno) {
-
-}
-
-
-
+// function updateAluno(aluno) {
+// }
 
 // //Busca CEP ------------------
 // function buscaCEP(cep = "", callback) {
