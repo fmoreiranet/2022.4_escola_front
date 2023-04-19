@@ -10,7 +10,22 @@
         listaAluno();
     }
 
+    let btnEntrarAluno = document.getElementById("entrar-aluno");
+    if (btnEntrarAluno) {
+        btnEntrarAluno.addEventListener("click", function () {
+            entrarAluno();
+        });
+    }
+
+    let btnSairAluno = document.getElementById("sair-aluno");
+    if (btnSairAluno) {
+        btnSairAluno.addEventListener("click", function () {
+            sairAluno();
+        });
+    }
+
     showEditAluno();
+    verifyAluno();
 })();
 
 function enviarDados() {
@@ -105,6 +120,51 @@ function removerAluno(matricula, nome) {
     }
 }
 
+function entrarAluno() {
+    try {
+        let email = document.getElementById("email").value;
+        let senha = document.getElementById("senha").value;
+        loginAluno(email, senha, function (result) {
+            console.log(result);
+            if (result) {
+                sessionStorage.setItem("userInfo", JSON.stringify(result));
+                verifyAluno();
+                location.href = "/projetos/escola_front/";
+            }
+        });
+    } catch (error) {
+        alert("Erro: \n" + error);
+    }
+}
+
+function sairAluno() {
+    try {
+        sessionStorage.removeItem("userInfo");
+        verifyAluno();
+        location.href = "/projetos/escola_front/";
+    } catch (error) {
+        alert("Erro: \n" + error);
+    }
+}
+
+function verifyAluno() {
+    try {
+        let areaAluno = document.getElementById("nome-user");
+        let menuOn = document.getElementById("menu-aluno-on");
+        let menuOff = document.getElementById("menu-aluno-off");
+        let aluno = JSON.parse(sessionStorage.getItem("userInfo"));
+        menuOn.style.display = "none";
+        menuOff.style.display = "block";
+        if (aluno) {
+            areaAluno.innerHTML = aluno.nome;
+            menuOn.style.display = "block";
+            menuOff.style.display = "none";
+        }
+        return aluno != null;
+    } catch (error) {
+        alert("Erro: \n" + error);
+    }
+}
 
 
 

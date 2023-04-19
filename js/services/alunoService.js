@@ -68,6 +68,26 @@ async function deleteAluno(matricula, callback) {
         });
 }
 
+async function loginAluno(email, senha, callback) {
+    let obj = { email: email, senha: senha };
+    let parameter = {
+        method: 'POST',
+        body: JSON.stringify(obj)
+    };
+    await fetch(url + "aluno/login", parameter)
+        .then(res => res.text())
+        .then(content => {
+            let result = JSON.parse(content);
+            return callback(result.dados[0]);
+        })
+        .catch(err => {
+            console.log(err);
+            throw err.error;
+        });
+}
+
+
+
 // function updateAluno(aluno) {
 // }
 
