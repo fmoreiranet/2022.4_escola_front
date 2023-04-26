@@ -1,10 +1,22 @@
 const url = "http://localhost/projetos/escola_back/";
 
+function getToken() {
+    let token = JSON.parse(sessionStorage.getItem("token"));
+    if (token) {
+        return "Bearer " + token;
+    }
+    return "";
+}
+
 //CRUD ----------------------
 async function addAluno(aluno, callback) {
     var parameter = {
         method: 'POST',
-        body: JSON.stringify(aluno)
+        body: JSON.stringify(aluno),
+        headers: {
+            'Authorization': getToken(),
+            'Content-Type': 'application/json'
+        }
     };
     await fetch(url + "aluno", parameter)
         .then(res => res.text())
@@ -20,6 +32,10 @@ async function addAluno(aluno, callback) {
 async function getAllAluno(callback) {
     var parameter = {
         method: 'GET',
+        headers: {
+            'Authorization': getToken(),
+            'Content-Type': 'application/json'
+        }
     };
     await fetch(url + "aluno", parameter)
         .then(res => res.text())
@@ -36,7 +52,11 @@ async function getAluno(matricula, callback) {
     let obj = { matricula: matricula };
     let parameter = {
         method: 'PUT',
-        body: JSON.stringify(obj)
+        body: JSON.stringify(obj),
+        headers: {
+            'Authorization': getToken(),
+            'Content-Type': 'application/json'
+        }
     };
     await fetch(url + "aluno", parameter)
         .then(res => res.text())
@@ -54,7 +74,11 @@ async function deleteAluno(matricula, callback) {
     let obj = { matricula: matricula };
     let parameter = {
         method: 'DELETE',
-        body: JSON.stringify(obj)
+        body: JSON.stringify(obj),
+        headers: {
+            'Authorization': getToken(),
+            'Content-Type': 'application/json'
+        }
     };
     await fetch(url + "aluno", parameter)
         .then(res => res.text())
@@ -78,6 +102,8 @@ async function loginAluno(email, senha, callback) {
         .then(res => res.text())
         .then(content => {
             let result = JSON.parse(content);
+            console.log(result);
+            sessionStorage.setItem("token", JSON.stringify(result.token));
             return callback(result.dados[0]);
         })
         .catch(err => {

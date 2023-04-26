@@ -56,9 +56,10 @@ function mountAluno() {
 }
 
 function listaAluno() {
-    getAllAluno((alunos) => {
-        let localListAluno = document.getElementById("localListAluno");
-        let tempTable = `
+    try {
+        getAllAluno((alunos) => {
+            let localListAluno = document.getElementById("localListAluno");
+            let tempTable = `
         <table class='table'>
         <tr>
             <th>Matricula</th>
@@ -69,8 +70,8 @@ function listaAluno() {
             <th><img src="../img/pen-to-square-regular.svg" alt="" class="icon"></th>
         </tr>
         `
-        for (let index = 0; index < alunos.length; index++) {
-            tempTable += `
+            for (let index = 0; index < alunos.length; index++) {
+                tempTable += `
             <tr>
                 <td>${alunos[index].matricula}</td>
                 <td>${alunos[index].nome}</td>
@@ -79,18 +80,25 @@ function listaAluno() {
                 <td><img src="../img/trash-can-regular.svg" alt="" class="icon" onclick="removerAluno(${alunos[index].matricula}, '${alunos[index].nome}')"></td>
                 <td><img src="../img/pen-to-square-regular.svg" alt="" class="icon" onclick="editarAluno(${alunos[index].matricula})"></td>
             <tr>`;
-        }
-        tempTable += `</table>`
-        localListAluno.innerHTML = tempTable;
-    });
+            }
+            tempTable += `</table>`
+            localListAluno.innerHTML = tempTable;
+        });
+    } catch (error) {
+        alert("Erro: \n" + error);
+    }
 }
 
 function editarAluno(matricula) {
-    console.log("editar:", matricula);
-    getAluno(matricula, (aluno) => {
-        sessionStorage.setItem("editAluno", JSON.stringify(aluno));
-        location.href = "alunoCadastro.html";
-    });
+    try {
+        console.log("editar:", matricula);
+        getAluno(matricula, (aluno) => {
+            sessionStorage.setItem("editAluno", JSON.stringify(aluno));
+            location.href = "alunoCadastro.html";
+        });
+    } catch (error) {
+        alert("Erro: \n" + error);
+    }
 }
 
 function showEditAluno() {
@@ -109,14 +117,18 @@ function showEditAluno() {
 }
 
 function removerAluno(matricula, nome) {
-    console.log("remover:", matricula);
-    let pergunta = `Deseja remover o cadastro: ${nome}?`;
-    if (confirm(pergunta)) {
-        deleteAluno(matricula, (result) => {
-            console.log(result);
-            alert(result.message);
-            listaAluno();
-        });
+    try {
+        console.log("remover:", matricula);
+        let pergunta = `Deseja remover o cadastro: ${nome}?`;
+        if (confirm(pergunta)) {
+            deleteAluno(matricula, (result) => {
+                console.log(result);
+                alert(result.message);
+                listaAluno();
+            });
+        }
+    } catch (error) {
+        alert("Erro: \n" + error);
     }
 }
 
@@ -150,15 +162,23 @@ function sairAluno() {
 function verifyAluno() {
     try {
         let areaAluno = document.getElementById("nome-user");
-        let menuOn = document.getElementById("menu-aluno-on");
-        let menuOff = document.getElementById("menu-aluno-off");
+        let menuOn = document.getElementsByClassName("menu-aluno-on");
+        let menuOff = document.getElementsByClassName("menu-aluno-off");
         let aluno = JSON.parse(sessionStorage.getItem("userInfo"));
-        menuOn.style.display = "none";
-        menuOff.style.display = "block";
+        for (let menu of menuOn) {
+            menu.style.display = "none";
+        }
+        for (let menu of menuOff) {
+            menu.style.display = "block";
+        }
         if (aluno) {
             areaAluno.innerHTML = aluno.nome;
-            menuOn.style.display = "block";
-            menuOff.style.display = "none";
+            for (let menu of menuOn) {
+                menu.style.display = "block";
+            }
+            for (let menu of menuOff) {
+                menu.style.display = "none";
+            }
         }
         return aluno != null;
     } catch (error) {
