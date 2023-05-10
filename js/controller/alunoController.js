@@ -104,7 +104,7 @@ function editarAluno(matricula) {
 function showEditAluno() {
     let editAluno = JSON.parse(sessionStorage.getItem("editAluno"));
     if (editAluno != null) {
-        let alunoTemp = editAluno.dados[0];
+        let alunoTemp = editAluno.dados;
         document.getElementById("matricula").value = alunoTemp.matricula;
         document.getElementById("nome").value = alunoTemp.nome;
         document.getElementById("email").value = alunoTemp.email;
