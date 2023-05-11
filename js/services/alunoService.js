@@ -22,10 +22,11 @@ async function addAluno(aluno, callback) {
         .then(res => res.text())
         .then(txt => {
             let result = JSON.parse(txt);
+            valideResult(result)
             return callback(result.message);
         })
         .catch(err => {
-            throw err.error;
+            throw new Error(err);
         })
 }
 
@@ -41,10 +42,11 @@ async function getAllAluno(callback) {
         .then(res => res.text())
         .then(content => {
             let result = JSON.parse(content);
+            valideResult(result)
             return callback(result.dados);
         })
         .catch(err => {
-            throw err.error;
+            throw new Error(err);
         });
 }
 
@@ -62,11 +64,12 @@ async function getAluno(matricula, callback) {
         .then(res => res.text())
         .then(content => {
             let result = JSON.parse(content);
-            return callback(result);
+            valideResult(result)
+            return callback(result.dados[0]);
         })
         .catch(err => {
             console.log(err);
-            throw err.error;
+            throw err;
         });
 }
 
@@ -84,11 +87,12 @@ async function deleteAluno(matricula, callback) {
         .then(res => res.text())
         .then(content => {
             let result = JSON.parse(content);
+            valideResult(result)
             return callback(result);
         })
         .catch(err => {
             console.log(err);
-            throw err.error;
+            throw new Error(err);
         });
 }
 
@@ -102,15 +106,28 @@ async function loginAluno(email, senha, callback) {
         .then(res => res.text())
         .then(content => {
             let result = JSON.parse(content);
-            console.log(result);
+            valideResult(result)
             sessionStorage.setItem("token", JSON.stringify(result.token));
             return callback(result.dados[0]);
         })
         .catch(err => {
             console.log(err);
-            throw err.error;
+            throw new Error(err);
         });
 }
+
+function valideResult(result) {
+    // response = {
+    //     error: "",
+    //     data: [{}],
+    //     requestDate: "",
+    //     message: ""
+    // }
+
+    if (result.error && (result.error !== "" || result.error !== null))
+        throw new Error(result.error);
+}
+
 
 
 
@@ -135,7 +152,7 @@ async function loginAluno(email, senha, callback) {
 //     let url = `https://viacep.com.br/ws/${cep}/json/`;
 
 //     //https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API/Using_Fetch
-//     //Definimos o objeto com os parâmetros de envio da requisição 
+//     //Definimos o objeto com os parâmetros de envio da requisição
 //     var parameter = {
 //         method: 'GET'
 //     };

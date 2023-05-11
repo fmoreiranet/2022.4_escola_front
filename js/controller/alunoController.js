@@ -28,11 +28,11 @@
     verifyAluno();
 })();
 
-function enviarDados() {
+async function enviarDados() {
     try {
         const aluno = mountAluno();
         aluno.validarDados();
-        addAluno(aluno, function (result) {
+        await addAluno(aluno, function (result) {
             limparForm();
             alert(result);
         });
@@ -55,9 +55,9 @@ function mountAluno() {
     return alunoTemp;
 }
 
-function listaAluno() {
+async function listaAluno() {
     try {
-        getAllAluno((alunos) => {
+        await getAllAluno((alunos) => {
             let localListAluno = document.getElementById("localListAluno");
             let tempTable = `
         <table class='table'>
@@ -89,10 +89,10 @@ function listaAluno() {
     }
 }
 
-function editarAluno(matricula) {
+async function editarAluno(matricula) {
     try {
         console.log("editar:", matricula);
-        getAluno(matricula, (aluno) => {
+        await getAluno(matricula, (aluno) => {
             sessionStorage.setItem("editAluno", JSON.stringify(aluno));
             location.href = "alunoCadastro.html";
         });
@@ -102,26 +102,30 @@ function editarAluno(matricula) {
 }
 
 function showEditAluno() {
-    let editAluno = JSON.parse(sessionStorage.getItem("editAluno"));
-    if (editAluno != null) {
-        let alunoTemp = editAluno.dados;
-        document.getElementById("matricula").value = alunoTemp.matricula;
-        document.getElementById("nome").value = alunoTemp.nome;
-        document.getElementById("email").value = alunoTemp.email;
-        document.getElementById("senha").value = alunoTemp.senha;
-        document.getElementById("data_nasc").value = alunoTemp.data_nasc;
-        sessionStorage.removeItem("editAluno");
-        return alunoTemp;
+    try {
+        let editAluno = JSON.parse(sessionStorage.getItem("editAluno"));
+        if (editAluno != null) {
+            let alunoTemp = editAluno;
+            document.getElementById("matricula").value = alunoTemp.matricula;
+            document.getElementById("nome").value = alunoTemp.nome;
+            document.getElementById("email").value = alunoTemp.email;
+            document.getElementById("senha").value = alunoTemp.senha;
+            document.getElementById("data_nasc").value = alunoTemp.data_nasc;
+            sessionStorage.removeItem("editAluno");
+            return alunoTemp;
+        }
+        return null;
+    } catch (error) {
+        alert("Erro: \n" + error);
     }
-    return null;
 }
 
-function removerAluno(matricula, nome) {
+async function removerAluno(matricula, nome) {
     try {
         console.log("remover:", matricula);
         let pergunta = `Deseja remover o cadastro: ${nome}?`;
         if (confirm(pergunta)) {
-            deleteAluno(matricula, (result) => {
+            await deleteAluno(matricula, (result) => {
                 console.log(result);
                 alert(result.message);
                 listaAluno();
@@ -132,11 +136,11 @@ function removerAluno(matricula, nome) {
     }
 }
 
-function entrarAluno() {
+async function entrarAluno() {
     try {
         let email = document.getElementById("email").value;
         let senha = document.getElementById("senha").value;
-        loginAluno(email, senha, function (result) {
+        await loginAluno(email, senha, function (result) {
             console.log(result);
             if (result) {
                 sessionStorage.setItem("userInfo", JSON.stringify(result));
