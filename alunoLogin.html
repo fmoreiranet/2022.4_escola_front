@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escola WEB - Lista Aluno</title>
+    <title>Escola WEB - Entrar como Aluno</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
@@ -14,7 +14,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">Escola WEB</a>
+            <a class="navbar-brand" href="index.html">Escola WEB</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Inicio</a>
+                        <a class="nav-link" href="index.html">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="alunoLista.html">Lista Alunos</a>
@@ -46,8 +46,32 @@
             </div>
         </div>
     </nav>
+
     <section class="container">
-        <div id="localListAluno"></div>
+        <div class="row">
+            <div class="col-10 col-md-6 m-auto">
+                <h2 class="text-center">Entrar como Aluno</h2>
+                <form action="#" class="" id="formEntrarAluno" autocomplete="off">
+
+                    <div class="col mt-3">
+                        <label for="email" class="">E-mail:</label>
+                        <input type="email" class="form-control" id="email" placeholder="" autocomplete="off">
+                    </div>
+
+                    <div class="col mt-3">
+                        <label for="senha" class="">Senha</label>
+                        <input type="password" class="form-control" id="senha" placeholder="" autocomplete="off">
+                    </div>
+
+                    <div class="col mt-3">
+                        <button class="btn btn-primary" type="button" id="entrar-aluno">Entrar</button>
+                    </div>
+                </form>
+                <div class="col mt-3">
+                    <button class="btn btn-primary" type="button" id="sair-aluno">Sair</button>
+                </div>
+            </div>
+        </div>
     </section>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -59,6 +83,6 @@
 <script src="../js/services/alunoService.js"></script>
 <script src="../js/controller/alunoController.js"></script> -->
 
-<script src="../js/main.js" type="module"></script>
+<script src="./js/main.js" type="module"></script>
 
 </html>

@@ -1,5 +1,5 @@
-import Aluno from '/js/model/Aluno.js';
-import AlunoService from '/js/services/AlunoService.js';
+import Aluno from '../model/Aluno.js';
+import AlunoService from '../services/AlunoService.js';
 class AlunoController {
     constructor() {
         let btnEnvioDados = document.getElementById("enviar-dados");
