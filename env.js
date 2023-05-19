@@ -1,4 +1,4 @@
-const process = {
+export const process = {
     env: {
         URL_API: "https://api.fabianomoreira.x10.mx/",
     }

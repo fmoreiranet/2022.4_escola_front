@@ -1,3 +1,4 @@
+import { process } from "../../env.js"
 export default class AlunoService {
     getToken() {
         let token = JSON.parse(sessionStorage.getItem("token"));
@@ -14,8 +15,9 @@ export default class AlunoService {
             body: JSON.stringify(aluno),
             headers: {
                 'Authorization': this.this.getToken(),
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
+            mode: "cors"
         };
         await fetch(process.env.URL_API + "aluno", parameter)
             .then(res => res.text())
@@ -30,22 +32,28 @@ export default class AlunoService {
     }
 
     async getAllAluno(callback) {
-        var parameter = {
+        let parameter = {
             method: 'GET',
             headers: {
+                'Accept': '*/',
                 'Authorization': this.getToken(),
-                'Content-Type': 'application/json'
-            }
+                //'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+                //'Content-Type': 'application/json'
+            },
         };
-        await fetch(process.env.URL_API + "aluno", parameter)
+        let url = process.env.URL_API + "aluno";
+        await fetch(url, parameter)
             .then(res => res.text())
             .then(content => {
                 let result = JSON.parse(content);
                 valideResult(result)
                 return callback(result.dados);
             })
+            .catch(rejected => {
+                console.log(rejected);
+            })
             .catch(err => {
-                throw new Error(err);
+                throw err;
             });
     }
 
@@ -91,7 +99,7 @@ export default class AlunoService {
             })
             .catch(err => {
                 console.log(err);
-                throw new Error(err);
+                throw err;
             });
     }
 
@@ -111,7 +119,7 @@ export default class AlunoService {
             })
             .catch(err => {
                 console.log(err);
-                throw new Error(err);
+                throw err;
             });
     }
 

@@ -65,26 +65,25 @@ class AlunoController {
             await alunoService.getAllAluno((alunos) => {
                 let localListAluno = document.getElementById("localListAluno");
                 let tempTable = `
-        <table class='table'>
-        <tr>
-            <th>Matricula</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Data Nasc.</th>
-            <th><img src="../img/trash-can-regular.svg" alt="" class="icon"></th>
-            <th><img src="../img/pen-to-square-regular.svg" alt="" class="icon"></th>
-        </tr>
-        `
+                    <table class='table'>
+                    <tr>
+                        <th>Matricula</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Data Nasc.</th>
+                        <th><img src="../img/trash-can-regular.svg" alt="" class="icon"></th>
+                        <th><img src="../img/pen-to-square-regular.svg" alt="" class="icon"></th>
+                    </tr>`;
                 for (let index = 0; index < alunos.length; index++) {
                     tempTable += `
-            <tr>
-                <td>${alunos[index].matricula}</td>
-                <td>${alunos[index].nome}</td>
-                <td>${alunos[index].email}</td>
-                <td>${alunos[index].data_nasc}</td>
-                <td><img src="../img/trash-can-regular.svg" alt="" class="icon" onclick="removerAluno(${alunos[index].matricula}, '${alunos[index].nome}')"></td>
-                <td><img src="../img/pen-to-square-regular.svg" alt="" class="icon" onclick="editarAluno(${alunos[index].matricula})"></td>
-            <tr>`;
+                    <tr>
+                        <td>${alunos[index].matricula}</td>
+                        <td>${alunos[index].nome}</td>
+                        <td>${alunos[index].email}</td>
+                        <td>${alunos[index].data_nasc}</td>
+                        <td><img src="../img/trash-can-regular.svg" alt="" class="icon" onclick="removerAluno(${alunos[index].matricula}, '${alunos[index].nome}')"></td>
+                        <td><img src="../img/pen-to-square-regular.svg" alt="" class="icon" onclick="editarAluno(${alunos[index].matricula})"></td>
+                    <tr>`;
                 }
                 tempTable += `</table>`
                 localListAluno.innerHTML = tempTable;
