@@ -1,4 +1,4 @@
-import { process } from "./../env.js"
+import { process } from "/js/env.js"
 export default class AlunoService {
     getToken() {
         let token = JSON.parse(sessionStorage.getItem("token"));
