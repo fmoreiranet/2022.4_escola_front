@@ -38,7 +38,7 @@ export default class AlunoService {
                 'Accept': '*/',
                 'Authorization': this.getToken(),
                 //'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
-                //'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
         };
         let url = process.env.URL_API + "aluno";
@@ -48,9 +48,6 @@ export default class AlunoService {
                 let result = JSON.parse(content);
                 valideResult(result)
                 return callback(result.dados);
-            })
-            .catch(rejected => {
-                console.log(rejected);
             })
             .catch(err => {
                 throw err;
