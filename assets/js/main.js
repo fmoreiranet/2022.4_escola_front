@@ -1,4 +1,4 @@
-import AlunoController from "/assets/js/controller/AlunoController.js"
+import AlunoController from "../assets/js/controller/AlunoController.js"
 
 const alunoController = new AlunoController;
 
