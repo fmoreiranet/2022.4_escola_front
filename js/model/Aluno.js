@@ -1,4 +1,4 @@
-class Aluno {
+export default class Aluno {
     constructor() {
         this.matricula = 0,
             this.nome = "",
