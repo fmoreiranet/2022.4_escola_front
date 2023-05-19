@@ -1,4 +1,4 @@
-import { process } from "../../env.js"
+import { process } from "../env.js"
 export default class AlunoService {
     getToken() {
         let token = JSON.parse(sessionStorage.getItem("token"));
@@ -48,9 +48,6 @@ export default class AlunoService {
                 let result = JSON.parse(content);
                 valideResult(result)
                 return callback(result.dados);
-            })
-            .catch(rejected => {
-                console.log(rejected);
             })
             .catch(err => {
                 throw err;
